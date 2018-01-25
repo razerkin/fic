@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/css/pintuer.css">
+<link rel="stylesheet" href="/css/admin.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 修改商品</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="goodUpdate" enctype="multipart/form-data">
+      <input type="hidden" name="good_id" value="{$data.good_id}" />
+      <input type="hidden" name="first_image_name" value="{$data.image_name}" />
+      <div class="form-group">
+        <div class="label">
+          <label>商品名称：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="good_name" value="{$data.good_name}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>商品价格：</label>
+        </div>
+        <div class="field">
+          <input type="number" class="input" name="good_price" value="{$data.good_price}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>商品图片：</label>
+        </div>
+        <div class="field">
+          <img src="/upload/goodimage/{$data.image_name}" alt="" width="120" height="50" />
+          <input type="file" name="image">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>描述：</label>
+        </div>
+        <div class="field">
+          <textarea id='memo' style="height: 400px;width: 600px;resize: none;" name="good_description"  >{$data.good_description}</textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body></html>
