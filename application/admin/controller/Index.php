@@ -8,6 +8,8 @@
 namespace app\admin\controller;
 use think\Controller;
 use app\admin\model\User;
+use think\Request;
+
 //use think\captcha\Captcha;
 
 class Index extends Controller
@@ -17,11 +19,12 @@ class Index extends Controller
 //        $config =array('fontSize' => 30, 'length' => 4);
 //        $captcha = new Captcha();
 //        $captcha->entry($config);
+
         return $this->fetch('login');
     }
 
 
-    public function checkLogin()
+    public function login()
     {
         $data = input('post.');
         $user = new User();
