@@ -6,9 +6,9 @@
  * Time: 3:17
  */
 namespace  app\admin\controller;
+
 use think\Controller;
 use think\Request;
-
  class  Base extends  Controller
 {
     protected $is_check_login = [''];
@@ -30,10 +30,6 @@ use think\Request;
         return session('?name');
 
     }
-
-
-
-
 
 
 
