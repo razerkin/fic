@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="/css/pintuer.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder"> 采购清单</strong></div>
+  <table class="table table-hover text-center">
+    <tr>
+      <th width="25%">商品名称</th>
+      <th width="25%">商品图片</th>
+      <th width="15%">采购单价</th>
+      <th width="15%">采购数量</th>
+      <th width="20%">总价</th>
+    </tr>
+    {foreach $orderGoodData as $goodListValue}
+    <tr>
+      <td>{$goodListValue.good_name}</td>
+      <td><img src="/upload/goodimage/{$goodListValue.image_name}" alt="" width="120" height="50" /></td>
+      <td>{$goodListValue.good_price}元</td>
+      <td>{$goodListValue.insertNumber}</td>
+      <td>{$goodListValue.total_fee}元</td>
+    </tr>
+    {/foreach}
+  </table>
+</div>
+<div class="panel admin-panel">
+  <div class="padding border-bottom">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 基本信息</strong></div>
+    <div><form action="pointgenerateOrder" method="post" >
+      <input type="hidden" name="order_payment" value="{$orderBaseInformation.total_payment}" />
+      <input type="hidden" name="order_gooddata" value="{$orderGoodDataStr}" />
+      <input type="hidden" name="order_point_name" value="{$orderBaseInformation.point_name}" />
+      <input type="hidden" name="order_warehouse_name" value="{$orderBaseInformation.warehouse_name}" />
+      <input type="hidden" name="order_manager" value="{$orderBaseInformation.manager_name}" />
+      <input type="hidden" name="order_phone" value="{$orderBaseInformation.manager_phone}" />
+      <input type="hidden" name="order_post_fee" value="{$orderBaseInformation.shipping_fee}" />
+      <input type="hidden" name="order_beizhu" value="{$orderBaseInformation.beizhu}" />
+      <input type="hidden" name="order_status" value="0" />
+      <div class="form-group">
+        <div class="label">
+          <label>供应仓库：{$orderBaseInformation.warehouse_name}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label> 收货分销点：{$orderBaseInformation.point_name}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label> 联系人：{$orderBaseInformation.manager_name}  </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>联系电话：{$orderBaseInformation.manager_phone}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label> 邮资：{$orderBaseInformation.shipping_fee}   </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label> 订单总额：{$orderBaseInformation.total_payment}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label> 备注：{$orderBaseInformation.beizhu}</label>
+        </div>
+      </div>
+      <button class="button bg-green icon-check-square-o" type="submit"> 下一步</button>
+    </form></div>
+  </div>
+</div>
+<div class="panel admin-panel margin-top">
+</div>
+
+<script type="text/javascript">
+    function del(id,mid){
+        if(confirm("您确定要删除吗?")){
+
+        }
+    }
+</script>
+
+
+
+</body>
+</html>

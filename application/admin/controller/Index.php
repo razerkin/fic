@@ -9,7 +9,8 @@ namespace app\admin\controller;
 use think\Controller;
 use app\admin\model\User;
 use think\Request;
-
+use app\admin\validate\User as UserValidate;
+use think\Db;
 //use think\captcha\Captcha;
 
 class Index extends Controller
@@ -32,6 +33,7 @@ class Index extends Controller
         if ($result) {
             if ($result['password'] === md5($data['password'])) {
                 session('name', $data['name']);
+                session('user_id', $result['id']);
             } else {
                 $this->error('密码不正确');
             }
@@ -45,11 +47,46 @@ class Index extends Controller
         }
 
     }
+    public function sign() {
+        return $this->fetch();
+    }
+
+    public function signIn()
+    {
+
+        $data = input('post.');
+        if (captcha_check($data['code'])) {
+            $val = new UserValidate();
+
+            if (!($val->check($data)))
+            {
+                $this->error($val->getError());
+                exit;
+            }
+            $user = new User($data);
+            $ret = $user->allowField(true)->save();
+
+            if($ret)
+            {
+                //分配用户权限
+                $giveAuth = ['uid'=>$user->id, 'group_id'=>'3'];
+                if( Db::table('think_auth_group_access')->insert($giveAuth)) {
+                    $this->success('新增员工成功！', '/');
+                } else {
+                    $this->error('分配权限失败');
+                }
+            } else {
+                $this->error('新增员工失败!');
+            }
+        } else {
+            $this->error('验证码不正确');
+        }
+    }
 
     public function logout()
     {
         session(null);
-        $this->success('退出登录成功','Index/index');
+        $this->success('退出登录成功','/');
     }
 
 

@@ -22,12 +22,14 @@
       <th width="30%">商品名称</th>
       <th width="30%">商品图片</th>
       <th width="20%">库存数量</th>
+      <th width="30%">出入库操作</th>
     </tr>
 {foreach $stockdata as $goodListValue}
     <tr>
       <td>{$goodListValue.good_name}</td>
       <td><img src="/upload/goodimage/{$goodListValue.image_name}" alt="" width="120" height="50" /></td>
       <td>{$goodListValue.stocknumber}</td>
+      <td><div class="button-group"> <a class="button border-main" href="cateedit.html"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="javascript:void(0)" onclick="return del(1,2)"><span class="icon-trash-o"></span> 删除</a> </div></td>
     </tr>
 {/foreach}
 
@@ -83,7 +85,7 @@
   <div class="panel-head" id="jian"><strong><span class="icon-pencil-square-o"></span>商品出库</strong></div>
   <div class="body-content">
     <form method="post" class="form-x" action="stockReduce">
-      <input type="hidden" name="warehouse_id" value="{$warehouse_id}" />
+      <input type="hidden" name="point_id" value="{$point_id}" />
       <div class="form-group">
         <div class="label">
           <label>出库商品：</label>

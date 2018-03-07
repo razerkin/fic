@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="/css/pintuer.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder"> 分销点列表</strong></div>
+  <div class="padding border-bottom">
+    <button type="button" class="button border-main" onclick="window.location.href='javascript:history.back(-1);'"><span class="icon-o"></span> 返回上一级</button>
+  </div>
+  <table class="table table-hover text-center">
+    <tr>
+      <th width="100" >ID</th>
+      <th width="10%">分销点名称</th>
+      <th width="15%">地址</th>
+      <th width="5%">负责人名称</th>
+      <th width="10%">负责人电话</th>
+      <th width="15%">负责人邮箱</th>
+      <th width="15%">建立时间</th>
+      <th width="20%">操作</th>
+    </tr>
+{foreach $data as $Value}
+    <tr>
+      <td>{$Value.point_id}</td>
+      <td>{$Value.point_name}</td>
+      <td>{$Value.point_address}</td>
+      <td>{$Value.point_manager}</td>
+      <td>{$Value.point_phone}</td>
+      <td>{$Value.point_mail}</td>
+      <td>{$Value.create_time}</td>
+
+      <td><div class="button-group"> <a class="button border-green" href="pointStockList.html?point_id={$Value.point_id}"><span class="icon-edit"></span> 库存</a><a class="button border-main" href="updatePoint.html?id={$Value.point_id}"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="pointDelete?id={$Value.point_id}"><span class="icon-trash-o"></span> 删除</a> </div></td>
+    </tr>
+{/foreach}
+
+
+  </table>
+</div>
+<script type="text/javascript">
+    function del(id,mid){
+        if(confirm("您确定要删除吗?")){
+
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="/css/pintuer.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder"> 采购清单</strong></div>
+  <table class="table table-hover text-center">
+    <tr>
+      <th width="25%">商品名称</th>
+      <th width="25%">商品图片</th>
+      <th width="15%">采购单价</th>
+      <th width="15%">采购数量</th>
+      <th width="20%">总价</th>
+    </tr>
+    {foreach $orderGoodData as $goodListValue}
+    <tr>
+      <td>{$goodListValue.good_name}</td>
+      <td><img src="/upload/goodimage/{$goodListValue.image_name}" alt="" width="120" height="50" /></td>
+      <td>{$goodListValue.good_price}元</td>
+      <td>{$goodListValue.insertNumber}</td>
+      <td>{$goodListValue.total_fee}元</td>
+    </tr>
+    {/foreach}
+  </table>
+</div>
+<div class="panel admin-panel">
+  <div class="padding border-bottom">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 基本信息</strong></div>
+    <div><form action="pointUpdateOrder" method="post" >
+      <input type="hidden" name="orderGoodDataStr" value="{$orderGoodDataStr}" />
+      <input type="hidden" name="order_id" value="{$orderBaseInformation.order_id}" />
+      <input type="hidden" name="order_warehouse_name" value="{$orderBaseInformation.order_warehouse_name}" />
+      <input type="hidden" name="order_point_name" value="{$orderBaseInformation.order_point_name}" />
+      <div class="form-group">
+        <div class="label">
+          <label > 订单号：{$orderBaseInformation.order_id}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label >供应仓库：{$orderBaseInformation.order_warehouse_name}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>收货分销点：{$orderBaseInformation.order_point_name}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label> 联系人：{$orderBaseInformation.order_manager}  </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label >联系电话：{$orderBaseInformation.order_phone}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label > 邮资：{$orderBaseInformation.order_post_fee}   </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label> 订单总额：{$orderBaseInformation.order_payment}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>付款方式：</label>
+        </div>
+        <div class="field">
+          <select name="order_payment_type" class="input">
+            <option value="{$orderBaseInformation.order_payment_type}">{switch name="$orderBaseInformation.order_payment_type"}
+              {case value="0"}未付款{/case}
+              {case value="1"}支付宝{/case}
+              {case value="2"}微信{/case}
+              {case value="3"}银行转账{/case}
+              {/switch}</option>
+            <option value="1">支付宝</option>
+            <option value="2">微信</option>
+            <option value="3">银行转账</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label> 创建时间：{$orderBaseInformation.create_time}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label> 修改时间：{$orderBaseInformation.update_time}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label> {if condition="($orderBaseInformation.end_time neq NULL) OR ($orderBaseInformation.close_time eq NULL)"}完成时间：{$orderBaseInformation.end_time}
+          {elseif condition="$orderBaseInformation.close_time neq NULL"/}关闭时间：{$orderBaseInformation.close_time}
+            {/if}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>快递单号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="order_shipping_code" value="{$orderBaseInformation.order_shipping_code}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>发货时间：</label>
+        </div>
+        <div class="field">
+          <input type="date" class="input" name="order_shipping_time" value="{$orderBaseInformation.order_shipping_time}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>备注：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" value="{$orderBaseInformation.order_beizhu}" name="order_beizhu"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>订单状态：</label>
+        </div>
+        <div class="field">
+          <select name="order_status" class="input">
+            <option value="{$orderBaseInformation.order_status}">{switch name="$orderBaseInformation.order_status"}
+              {case value="0"}未付款{/case}
+              {case value="1"}已付款{/case}
+              {case value="2"}发货中{/case}
+              {case value="3"}已签收{/case}
+              {case value="4"}已关闭{/case}
+              {/switch}</option>
+            <option value="1">已付款</option>
+            <option value="2">发货中</option>
+            <option value="3">已签收</option>
+          </select>
+        </div>
+      </div>
+      <button class="button bg-green icon-check-square-o" type="submit"> 下一步</button>
+    </form></div>
+  </div>
+</div>
+<div class="panel admin-panel margin-top">
+</div>
+
+<script type="text/javascript">
+    function del(id,mid){
+        if(confirm("您确定要删除吗?")){
+
+        }
+    }
+</script>
+
+
+
+</body>
+</html>

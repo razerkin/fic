@@ -13,61 +13,55 @@
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加员工</strong></div>
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 增加分销点</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="userInsert">
+    <form method="post" class="form-x" action="pointInsert" enctype="multipart/form-data">
       <div class="form-group">
         <div class="label">
-          <label>用户名：</label>
+          <label>分销点名称：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" value="" name="name" data-validate="required:用户名长度不能少于3位" />
+          <input type="text" class="input" name="point_name" value="" />
           <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label>用户类型：</label>
+          <label>地址：</label>
         </div>
         <div class="field">
-          <select class="input w50" value="" name="user_status">
-            <option value="">请选择用户类型</option>
-            <option value="4">普通用户</option>
-            <option value="3">仓库负责人</option>
-            <option value="2">普通管理员</option>
-            <option value="1">超级管理员</option>
-          </select>
+          <input id='province' class="input" style="height: 42px;width: 60px;resize: none;display:inline;" name="point_province">省<input id='city' class="input" style="height: 42px;width: 60px;resize: none;display:inline;" name="point_city">市<input id='prefecture' class="input" style="height: 42px;width: 60px;resize: none;display:inline;" name="point_prefecture">区
+            <input id='address' class="input" style="height: 42px;width: 600px;resize: none;display:inline;" name="point_address">
           <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label>密码：</label>
+          <label>负责人姓名：</label>
         </div>
         <div class="field">
-          <input type="password" class="input w50" value="" name="password" data-validate="required:请输入密码" />
+          <input type="text" class="input" name="point_manager" value="" />
           <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label>确认密码：</label>
+          <label>负责人电话：</label>
         </div>
         <div class="field">
-          <input type="password" class="input w50" value="" name="repassword" data-validate="required:请再次输入密码" />
+          <input type="number" class="input" name="point_phone" value="" />
           <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label>邮箱：</label>
+          <label>负责人邮箱：</label>
         </div>
         <div class="field">
-          <input type="email" class="input w50" value="" name="email" data-validate="required:请输入邮箱" />
+          <input type="text" class="input" name="point_mail" value="" />
           <div class="tips"></div>
         </div>
       </div>
-
       <div class="form-group">
         <div class="label">
           <label></label>
@@ -79,5 +73,4 @@
     </form>
   </div>
 </div>
-
 </body></html>

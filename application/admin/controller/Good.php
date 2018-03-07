@@ -9,6 +9,7 @@ use think\Request;
 class Good extends Base
 {
 
+    protected $is_check_auth = ['insertgood','goodinsert','updategood','goodupdate','gooddelete'];
     protected $is_check_login = ['*'];
     public function goodList()
     {

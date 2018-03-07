@@ -17,29 +17,29 @@
     <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
     <div class="padding border-bottom">
       <ul class="search" style="padding-left:10px;">
-        <li> <a class="button border-main icon-plus-square-o" href="insertuser.html"> 添加员工</a> </li>
+        <li> <a class="button border-main icon-plus-square-o" href="insertsupplier.html"> 添加供应商</a> </li>
       </ul>
     </div>
     <table class="table table-hover text-center">
       <tr>
         <th width="100" style="text-align:left; padding-left:20px;">ID</th>
-        <th width="10%">用户名</th>
-        <th width="25%">密码</th>
+        <th width="10%">公司名称</th>
+        <th width="25%">公司地址</th>
+        <th width="15%">联系电话</th>
         <th width="15%">邮箱</th>
-        <th width="15%">加入时间</th>
-          <th width="15%">修改时间</th>
+          <th width="15%">加入时间</th>
         <th width="310">操作</th>
       </tr>
       <volist name="list" id="vo">
        {foreach $data as $value}
         <tr>
-          <td>{$value.id}</td>
-            <td>{$value.name}</td>
-          <td>{$value.password}</td>
-            <td>{$value.email}</td>
+          <td>{$value.supplier_id}</td>
+            <td>{$value.supplier_name}</td>
+          <td>{$value.supplier_address}</td>
+            <td>{$value.supplier_phone}</td>
+          <td>{$value.supplier_mail}</td>
           <td>{$value.create_time}</td>
-          <td>{$value.update_time}</td>
-          <td><div class="button-group"> <a class="button border-main" href="adminupdateuser.html?id={$value.id}"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="userdelete?id={$value.id}"><span class="icon-trash-o"></span> 删除</a> </div></td>
+          <td><div class="button-group"> <a class="button border-main" href="updatesupplier.html?supplier_id={$value.supplier_id}"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="supplierdelete?supplier_id={$value.supplier_id}"><span class="icon-trash-o"></span> 删除</a> </div></td>
         </tr>
    		 {/foreach}
       <tr>

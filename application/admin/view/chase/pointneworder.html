@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="/css/pintuer.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/pintuer.js"></script>
+</head>
+<body>
+
+<div class="panel admin-panel">
+  <div class="padding border-bottom">
+
+    <div><form action="pointOrderConfirm?orderGoodDataStr={$finalDataStr}" method="post" >
+      <input type="hidden" name="total_payment" value="{$total_payment}" />
+      <input type="hidden" name="point_name" value="{$orderInformationData.point_name}" />
+      <input type="hidden" name="warehouse_name" value="{$orderInformationData.warehouse_name}" />
+      <input type="hidden" name="manager_name" value="{$orderInformationData.manager_name}" />
+      <input type="hidden" name="manager_phone" value="{$orderInformationData.manager_phone}" />
+      <input type="hidden" name="shipping_fee" value="{$orderInformationData.shipping_fee}" />
+      <input type="hidden" name="beizhu" value="{$orderInformationData.beizhu}" />
+      <button class="button bg-green icon-check-square-o" type="submit"> 下一步</button>
+    </form></div>
+  </div>
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 基本信息</strong></div>
+  <div class="body-content">
+    <div class="form-group">
+      <div class="label">
+        <label>&emsp;  &emsp;  &emsp;  &emsp;  &emsp;  供应仓库：{$orderInformationData.warehouse_name}</label>
+        <label>&emsp;  &emsp;  &emsp;  &emsp;  &emsp;  收货分销点：{$orderInformationData.point_name}</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="label">
+        <label>&emsp;  &emsp;  &emsp;  &emsp;  &emsp;  联系人：{$orderInformationData.manager_name}  </label>
+        <label>&emsp;  &emsp;  &emsp;  &emsp;  &emsp;  联系电话：{$orderInformationData.manager_phone}</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="label">
+        <label>&emsp;  &emsp;  &emsp;  &emsp;  &emsp;  邮资：{$orderInformationData.shipping_fee}   </label>
+        <label>&emsp;  &emsp;  &emsp;  &emsp;  &emsp;  备注：{$orderInformationData.beizhu}</label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>加入采购单</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="pointNewOrder?insertStr={$insertStr}">
+      <input type="hidden" name="point_id" value="{$orderInformationData.point_id}" />
+      <input type="hidden" name="warehouse_id" value="{$orderInformationData.warehouse_id}" />
+      <input type="hidden" name="manager_name" value="{$orderInformationData.manager_name}" />
+      <input type="hidden" name="manager_phone" value="{$orderInformationData.manager_phone}" />
+      <input type="hidden" name="shipping_fee" value="{$orderInformationData.shipping_fee}" />
+      <input type="hidden" name="beizhu" value="{$orderInformationData.beizhu}" />
+      <div class="form-group">
+        <div class="label">
+          <label>添加商品：</label>
+        </div>
+        <div class="field">
+          <select id="insertingId" name="insertGood_id" class="input w50" onchange="getStock()">
+            <option value="" name="">请选择要添加的商品</option>
+            {foreach $goodData as $allgood}
+            <option value="{$allgood.good_id}" id="{$allgood.stock_number}" >{$allgood.good_name}</option>
+            {/foreach}
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>采购数量：</label>
+        </div>
+        <div class="field">
+          <input  id="insertGood_number" type="number" class="input w50" name="insertGood_number"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder"> 采购开单</strong></div>
+  <table class="table table-hover text-center">
+    <tr>
+      <th width="15%">商品名称</th>
+      <th width="15%">商品图片</th>
+      <th width="10%">采购单价</th>
+      <th width="10%">采购数量</th>
+      <th width="20%">总价</th>
+      <th width="30%">操作</th>
+    </tr>
+    {foreach $preInsertData as $goodListValue}
+    <tr>
+      <td>{$goodListValue.good_name}</td>
+      <td><img src="/upload/goodimage/{$goodListValue.image_name}" alt="" width="120" height="50" /></td>
+      <td>{$goodListValue.good_price}</td>
+      <td>{$goodListValue.insertNumber}</td>
+      <td>{$goodListValue.total_fee}</td>
+      <td><div><form action="pointNewOrder?insertStr={$insertStr}&insertGood_id={$goodListValue.good_id}&insertGood_number=-{$goodListValue.insertNumber}" method="post" >
+          <input type="hidden" name="insertGood_id" value="{$goodListValue.good_id}" />
+          <input type="hidden" name="insertGood_number" value="-{$goodListValue.insertNumber}" />
+          <input type="hidden" name="point_id" value="{$pointData.point_id}" />
+          <input type="hidden" name="warehouse_id" value="{$warehouseData.warehouse_id}" />
+          <input type="hidden" name="manager_name" value="{$orderInformationData.manager_name}" />
+          <input type="hidden" name="manager_phone" value="{$orderInformationData.manager_phone}" />
+          <input type="hidden" name="shipping_fee" value="{$orderInformationData.shipping_fee}" />
+          <input type="hidden" name="beizhu" value="{$orderInformationData.beizhu}" />
+        <button class="button border-red icon-trash-o" type="submit"> 删除</button>
+        </form></div></td>
+    </tr>
+    {/foreach}
+
+
+
+  </table>
+</div>
+<script type="text/javascript">
+    function del(id,mid){
+        if(confirm("您确定要删除吗?")){
+
+        }
+    }
+
+
+    function getStock() {
+        var index = document.getElementById('insertingId');
+        var number = index.options[index.selectedIndex].id;
+        document.getElementById('insertGood_number').setAttribute('placeholder',"库存数量："+ number);
+        document.getElementById('insertGood_number').setAttribute('max',number);
+        document.getElementById('insertGood_number').value = '';
+    }
+</script>
+
+
+
+
+</body>
+</html>

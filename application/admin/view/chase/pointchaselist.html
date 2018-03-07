@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/css/pintuer.css">
+<link rel="stylesheet" href="/css/admin.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="" id="listform">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 订单列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li>搜索：</li>
+        <li>
+          <input id="con" type="text" placeholder="请输入订单号或快递单号" name="condition" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a></li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+          <th width="100" style="text-align:left; padding-left:20px;">订单号</th>
+        <th width="5%">供应仓库</th>
+        <th width="5%">收货分销点</th>
+        <th width="5%">联系人</th>
+        <th width="5%">邮资</th>
+        <th width="10%">订单总额</th>
+        <th width="5%">付款方式</th>
+        <th width="10%">创建时间</th>
+        <th width="10%">更新时间</th>
+        <th width="10%">完成时间</th>
+        <th width="10%">订单状态</th>
+        <th width="310">操作</th>
+      </tr>
+      <volist name="list" id="vo">
+       {foreach $orderData as $value}
+        <tr>
+          <td>{$value.order_id}</td>
+            <td>{$value.order_point_name}</td>
+          <td>{$value.order_warehouse_name}</td>
+            <td>{$value.order_manager}</td>
+          <td>{$value.order_post_fee}</td>
+          <td>{$value.order_payment}</td>
+          <td> {switch name="$value.order_payment_type"}
+            {case value="0"}{/case}
+            {case value="1"}支付宝{/case}
+            {case value="2"}微信{/case}
+            {case value="3"}银行转账{/case}
+            {/switch}</td>
+          <td>{$value.create_time}</td>
+          <td>{$value.update_time}</td>
+          <td>{$value.end_time}</td>
+          <td> {switch name="$value.order_status"}
+          {case value="0"}未付款{/case}
+            {case value="1"}已付款{/case}
+            {case value="2"}发货中{/case}
+            {case value="3"}已签收{/case}
+            {case value="4"}已关闭{/case}
+          {/switch}</td>
+          <td><div class="button-group"><a class="button border-green" href="pointOrderInformation?order_id={$value.order_id}"><span class="icon-edit"></span> 详情</a> <a class="button border-main" href="pointOrderUpdate?order_id={$value.order_id}"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="pointOrderClose?order_id={$value.order_id}&order_status=4"><span class="icon-trash-o"></span>关闭</a> </div></td>
+        </tr>
+   		 {/foreach}
+      <tr>
+        <td colspan="8"><div align="center"> {$page}</div></td>
+      </tr>
+    </table>
+  </div>
+</form>
+<script type="text/javascript">
+    function orderStatus($st){
+   alert('123');
+    }
+
+
+    //搜索
+    function changesearch(){
+    var aa = document.getElementById("con").value;
+    window.location.href="pointchaselist?condition="+aa;
+    }
+</script>
+
+
+
+</body>
+</html>

@@ -13,61 +13,71 @@
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加员工</strong></div>
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 新建采购单</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="userInsert">
+    <form method="post" class="form-x" action="newOrder?insertStr=" >
       <div class="form-group">
         <div class="label">
-          <label>用户名：</label>
+          <label>供应商：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" value="" name="name" data-validate="required:用户名长度不能少于3位" />
-          <div class="tips"></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="label">
-          <label>用户类型：</label>
-        </div>
-        <div class="field">
-          <select class="input w50" value="" name="user_status">
-            <option value="">请选择用户类型</option>
-            <option value="4">普通用户</option>
-            <option value="3">仓库负责人</option>
-            <option value="2">普通管理员</option>
-            <option value="1">超级管理员</option>
+          <select name="supplier_id" class="input w50">
+            <option value="">请选择供应商</option>
+            {foreach $supplierData as $supplier}
+            <option value="{$supplier.supplier_id}">{$supplier.supplier_name}</option>
+            {/foreach}
           </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>收货仓库：</label>
+        </div>
+        <div class="field">
+          <select name="warehouse_id" class="input w50">
+            <option value="">请选择收货仓库</option>
+            {foreach $warehouseData as $warehouse}
+            <option value="{$warehouse.warehouse_id}">{$warehouse.warehouse_name}</option>
+            {/foreach}
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>联系人：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" value="" name="manager_name" data-validate="required:联系人不能为空" />
           <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label>密码：</label>
+          <label>联系电话：</label>
         </div>
         <div class="field">
-          <input type="password" class="input w50" value="" name="password" data-validate="required:请输入密码" />
+          <input type="text" class="input w50" value="" name="manager_phone" data-validate="required:联系电话不能为空" />
           <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label>确认密码：</label>
+          <label>邮资：</label>
         </div>
         <div class="field">
-          <input type="password" class="input w50" value="" name="repassword" data-validate="required:请再次输入密码" />
+          <input type="number" class="input w50" value="" name="shipping_fee" data-validate="required:邮资不能为空" />
           <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label>邮箱：</label>
+          <label>备注：</label>
         </div>
         <div class="field">
-          <input type="email" class="input w50" value="" name="email" data-validate="required:请输入邮箱" />
+          <input type="text" class="input w50" value="" name="beizhu"  />
           <div class="tips"></div>
         </div>
       </div>
-
       <div class="form-group">
         <div class="label">
           <label></label>
@@ -79,5 +89,4 @@
     </form>
   </div>
 </div>
-
 </body></html>

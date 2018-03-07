@@ -30,60 +30,13 @@
       <td>{$goodListValue.stocknumber}</td>
     </tr>
 {/foreach}
-
-
   </table>
-</div>
-<script type="text/javascript">
-    function del(id,mid){
-        if(confirm("您确定要删除吗?")){
-
-        }
-    }
-</script>
-<div class="panel admin-panel margin-top">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>商品入库</strong></div>
-  <div class="body-content">
-    <form method="post" class="form-x" action="stockInsert">
-      <input type="hidden" name="warehouse_id" value="{$warehouse_id}" />
-      <div class="form-group">
-        <div class="label">
-          <label>添加商品：</label>
-        </div>
-        <div class="field">
-          <select name="good_id" class="input w50">
-            <option value="">请选择要添加的商品</option>
-            {foreach $data as $allgood}
-            <option value="{$allgood.good_id}">{$allgood.good_name}</option>
-            {/foreach}
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="label">
-          <label>入库数量：</label>
-        </div>
-        <div class="field">
-          <input type="text" class="input w50" name="insertNumber" />
-          <div class="tips"></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="label">
-          <label></label>
-        </div>
-        <div class="field">
-          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
-        </div>
-      </div>
-    </form>
-  </div>
 </div>
 <div class="panel admin-panel margin-top">
   <div class="panel-head" id="jian"><strong><span class="icon-pencil-square-o"></span>商品出库</strong></div>
   <div class="body-content">
     <form method="post" class="form-x" action="stockReduce">
-      <input type="hidden" name="warehouse_id" value="{$warehouse_id}" />
+      <input type="hidden" name="point_id" value="{$point_id}" />
       <div class="form-group">
         <div class="label">
           <label>出库商品：</label>

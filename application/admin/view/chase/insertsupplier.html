@@ -13,48 +13,33 @@
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加员工</strong></div>
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加供应商</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="userInsert">
+    <form method="post" class="form-x" action="supplierInsert">
       <div class="form-group">
         <div class="label">
-          <label>用户名：</label>
+          <label>公司名称：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" value="" name="name" data-validate="required:用户名长度不能少于3位" />
+          <input type="text" class="input w50" value="" name="supplier_name" data-validate="required:公司名长度不能少于3位" />
           <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label>用户类型：</label>
+          <label>公司地址：</label>
         </div>
         <div class="field">
-          <select class="input w50" value="" name="user_status">
-            <option value="">请选择用户类型</option>
-            <option value="4">普通用户</option>
-            <option value="3">仓库负责人</option>
-            <option value="2">普通管理员</option>
-            <option value="1">超级管理员</option>
-          </select>
+          <input type="text" class="input w50" value="" name="supplier_address" data-validate="required:请输入地址" />
           <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label>密码：</label>
+          <label>联系电话：</label>
         </div>
         <div class="field">
-          <input type="password" class="input w50" value="" name="password" data-validate="required:请输入密码" />
-          <div class="tips"></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="label">
-          <label>确认密码：</label>
-        </div>
-        <div class="field">
-          <input type="password" class="input w50" value="" name="repassword" data-validate="required:请再次输入密码" />
+          <input type="tel" class="input w50" value="" name="supplier_phone" data-validate="required:请输入联系电话" />
           <div class="tips"></div>
         </div>
       </div>
@@ -63,7 +48,7 @@
           <label>邮箱：</label>
         </div>
         <div class="field">
-          <input type="email" class="input w50" value="" name="email" data-validate="required:请输入邮箱" />
+          <input type="email" class="input w50" value="" name="supplier_mail" data-validate="required:请输入邮箱" />
           <div class="tips"></div>
         </div>
       </div>

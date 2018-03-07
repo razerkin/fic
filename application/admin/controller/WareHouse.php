@@ -12,6 +12,8 @@ use app\admin\validate\WareHouse as WareHouseValidate;
 use think\Db;
 class WareHouse extends Base
 {
+    protected $is_check_auth = ['warehouseinsert','insertwarehouse','updatewarehouse','warehousedelete'];
+    protected $is_check_login = ['*'];
     public function wareHouseList() {
         $data = WareHouseModel::paginate(3);
         $page = $data->render();
@@ -94,27 +96,32 @@ class WareHouse extends Base
        $this->assign('warehouse_id',$wareHouseID);
         $wareHouseInfo = WareHouseModel::get($wareHouseID);
         $wareHouseStock = $wareHouseInfo['warehouse_stock'];
-        $wareHouseStock = unserialize($wareHouseStock);
-        $good_id = array_keys($wareHouseStock);
-        $goodData = Db::name('Good')->where('good_id','in',$good_id)->select();
-        $newData = array();
-        foreach ($goodData as $k =>$v)
-        {
+        if ($wareHouseStock != NULL || $wareHouseStock != '') {
+            $wareHouseStock = unserialize($wareHouseStock);
+            $good_id = array_keys($wareHouseStock);
+            $goodData = Db::name('Good')->where('good_id','in',$good_id)->select();
+            $newData = array();
+            foreach ($goodData as $k =>$v)
+            {
 
-            $newData[$k]=$goodData[$k]['good_id'];
-        }
-//        $newData =array_flip($newData);
-        $finalData = array();
-        foreach ($goodData as $a => $b){
-            if ($newData[$a]===$goodData[$a]['good_id']) {
-                $finalData[$newData[$a]] = $goodData[$a];
+                $newData[$k]=$goodData[$k]['good_id'];
             }
+//        $newData =array_flip($newData);
+            $finalData = array();
+            foreach ($goodData as $a => $b){
+                if ($newData[$a]===$goodData[$a]['good_id']) {
+                    $finalData[$newData[$a]] = $goodData[$a];
+                }
+            }
+            foreach ($wareHouseStock as $key => $value) {
+                $finalData[$key]['stocknumber'] = $wareHouseStock[$key];
+            }
+            $this->assign('stockdata',$finalData);
+            return $this->fetch();
+        } else {
+            $this->error('该仓库库存为空');
         }
-        foreach ($wareHouseStock as $key => $value) {
-            $finalData[$key]['stocknumber'] = $wareHouseStock[$key];
-        }
-        $this->assign('stockdata',$finalData);
-        return $this->fetch();
+
 
     }
 

@@ -13,15 +13,16 @@
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加员工</strong></div>
+  <div class="panel-head" id="edit"><strong><span class="icon-pencil-square-o"></span>修改员工信息</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="userInsert">
+    <form method="post" class="form-x" action="adminUserUpdate">
+      <input type="hidden" name="id" value="{$data.id}" />
       <div class="form-group">
         <div class="label">
           <label>用户名：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" value="" name="name" data-validate="required:用户名长度不能少于3位" />
+          <input type="text" class="input w50" value={$data.name} name="name" data-validate="required:用户名长度不能少于3位" />
           <div class="tips"></div>
         </div>
       </div>
@@ -32,8 +33,7 @@
         <div class="field">
           <select class="input w50" value="" name="user_status">
             <option value="">请选择用户类型</option>
-            <option value="4">普通用户</option>
-            <option value="3">仓库负责人</option>
+            <option value="3">分销点负责人</option>
             <option value="2">普通管理员</option>
             <option value="1">超级管理员</option>
           </select>
@@ -63,7 +63,7 @@
           <label>邮箱：</label>
         </div>
         <div class="field">
-          <input type="email" class="input w50" value="" name="email" data-validate="required:请输入邮箱" />
+          <input type="email" class="input w50" value={$data.email} name="email" data-validate="required:请输入邮箱" />
           <div class="tips"></div>
         </div>
       </div>
